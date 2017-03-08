@@ -15,7 +15,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 *  The same holds for the training set.
 
 #About the script and the tidy dataset:
-*  Create one R script called run_analysis.R that does the following.
+Create one R script called run_analysis.R that does the following.
 *  Merges the training and the test sets to create one data set.
 *  Extracts only the measurements on the mean and standard deviation for each measurement.
 *  Uses descriptive activity names to name the activities in the data set
@@ -24,16 +24,14 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 #About the Code Book:
 The CodeBook.md file explains the transformations performed and the resulting data and variables.
-    
-    #Files & Folders :
-    * Folder: Getting_And_Cleaning_Data_Assignment
-    * Files : 
-    *            run_analysis.R
-    *            README.md
-    *            CodeBook.md
-    *            sec_TidySet.txt
 
-    Web Link : https://github.com/pradhanmk1/Getting_and_Cleaning_Data_Assignment
+#Files & Folders :
+*  Folder: Getting_And_Cleaning_Data_Assignment
+*  Files : 
+*            run_analysis.R
+*            README.md
+*            CodeBook.md
+*            sec_TidySet.txt
 
-
+Web Link : https://github.com/pradhanmk1/Getting_and_Cleaning_Data_Assignment
 
