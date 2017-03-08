@@ -2,7 +2,7 @@
 This document explains a project done by me as part of assignment of ONLINE Course Getting Data and Cleaning offered by Johns Hopkins University through Coursera.com.
 
 #Objective:
-The purpose of this project is to demonstrate the ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis.
+The purpose of this project is to demonstrate the ability to collect and clean a data set. The goal is to prepare tidy data that can be used for later analysis.
 
 #Data Source:
 http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
