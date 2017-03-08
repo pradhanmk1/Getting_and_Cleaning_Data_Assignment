@@ -1,4 +1,4 @@
-i#Code Book
+#Code Book
 
 This document describes the code inside run_analysis.R.
 
@@ -74,133 +74,14 @@ activity_labels<-read.table("activity_labels.txt",stringsAsFactors=F,header=F)
 
 ##Look at the properties of the above variables
 
-* >str(X_train)
+* str(X_train)
   'data.frame':	7352 obs. of  561 variables:
     $ tBodyAcc-mean()-X                   : num  0.289 0.278 0.28 0.279 0.277 ...
-    * > str(Y_train)
+    * str(Y_train)
       'data.frame':	7352 obs. of  1 variable:
         $ Activity_ID: int  5 5 5 5 5 5 5 5 5 5 ...
-	* > str(X_test)
+	* str(X_test)
 	  'data.frame':	2947 obs. of  561 variables:
 	    $ tBodyAcc-mean()-X                   : num  0.257 0.286 0.275 0.27 0.275 ...
 	    ##Reading features
 
-	     > str(Y_test)
-	     'data.frame':	2947 obs. of  1 variable:
-	      $ Activity_ID: int  5 5 5 5 5 5 5 5 5 5 ...
-
-	      > str(subject_train)
-	      'data.frame':	7352 obs. of  1 variable:
-	       $ Subject_ID: int  1 1 1 1 1 1 1 1 1 1 ...
-
-	        > str(subject_test)
-		'data.frame':	2947 obs. of  1 variable:
-		 $ Subject_ID: int  2 2 2 2 2 2 2 2 2 2 ...
-
-		 > str(features)
-		 'data.frame':	561 obs. of  2 variables:
-		  $ V1: int  1 2 3 4 5 6 7 8 9 10 ...
-		   $ V2: chr  "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y" "tBodyAcc-mean()-Z" "tBodyAcc-std()-X" ...
-
-		   > str(activity_labels)
-		   'data.frame':	6 obs. of  2 variables:
-		    $ Activity_ID  : int  1 2 3 4 5 6
-		     $ Activity_Type: chr  "WALKING" "WALKING_UPSTAIRS" "WALKING_DOWNSTAIRS" "SITTING" ...
-
-		     ##Merges test data and training data to UCI
-		     Variables used :
-		     *  train : merged training data
-		     *  test : merged test data
-		     *  UCI : combination of train and test data
-
-		     train<-cbind(Y_train,subject_train,X_train)
-		     test<-cbind(Y_test,subject_test,X_test)
-		     UCI<-rbind(train,test)
-
-		     > str(train)
-		     'data.frame':	7352 obs. of  563 variables:
-		      $ Activity_ID                         : int  5 5 5 5 5 5 5 5 5 5 ...
-
-		       > str(test)
-		       'data.frame':	2947 obs. of  563 variables:
-		        $ Activity_ID                         : int  5 5 5 5 5 5 5 5 5 5 ...
-
-			 > str(UCI)
-			 'data.frame':	10299 obs. of  563 variables:
-			  $ Activity_ID                         : int  5 5 5 5 5 5 5 5 5 5 ...
-
-			  #Step 2 : Extracts only the measurements on the mean and standard deviation for each measurement.
-			  ===============================================================================================
-			  ##Reading column names:
-			  Variable used :
-			  *  FeaturesNames : contains all features with mean and std
-
-			  FeaturesNames<-features$V2[grep("mean\\(\\)|std\\(\\)", features$V2)]
-
-			  > str(FeaturesNames)
-			   chr [1:66] "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y" "tBodyAcc-mean()-Z" ...
-
-			   ##Create vector for defining ID, mean and standard deviation:
-			   Variables used :
-			   *  selectedNames : vector with selected feature name , Subject and Activity
-
-			   selectedNames<-c(as.character(FeaturesNames), "Subject_ID", "Activity_ID" )
-
-			   > str(selectedNames)
-			    chr [1:68] "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y" "tBodyAcc-mean()-Z" ...
-
-			    ##Making nessesary subset from UCI
-
-			    Variables Used :
-			    *  Data : all observations with selected columns
-
-			    Data<-subset(UCI,select=selectedNames)
-
-			    #Step 3 : Uses descriptive activity names to name the activities in the data set
-			    ================================================================================
-
-			    Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
-
-			    > str(Data)
-			    'data.frame':	10299 obs. of  69 variables:
-			     $ Activity_ID                                   : int  1 1 1 1 1 1 1 1 1 1 ...
-
-			     #Step 4 : Appropriately labels the data set with descriptive variable names.
-			     ============================================================================
-
-			     *  In the former part, variables activity and subject and names of the activities have been labelled using descriptive names.
-			     *  In this part, Names of Feteatures will labelled using descriptive variable names.
-			     *  prefix t is replaced by time
-			     *  Acc is replaced by Accelerometer
-			     *  Gyro is replaced by Gyroscope
-			     *  prefix f is replaced by frequency
-			     *  Mag is replaced by Magnitude
-			     *  BodyBody is replaced by Body
-
-			     names(Data)<-gsub("^t", "time", names(Data))
-			     names(Data)<-gsub("^f", "frequency", names(Data))
-			     names(Data)<-gsub("Acc", "Accelerometer", names(Data))
-			     names(Data)<-gsub("Gyro", "Gyroscope", names(Data))
-			     names(Data)<-gsub("Mag", "Magnitude", names(Data))
-			     names(Data)<-gsub("BodyBody", "Body", names(Data))
-
-			     #Step 5 : From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-			     =======================================================================================================================================================
-			     Variables used :
-			     *  sec_TidySet  : Second independent tidy data set with the average of each variable for each activity and each subject.
-
-			     Data$Activity_Type <- as.character(Data$Activity_Type)
-			     sec_TidySet <- aggregate(. ~Subject_ID + Activity_ID - Activity_Type , Data, mean)
-			     sec_TidySet <- sec_TidySet[order(sec_TidySet$Subject_ID, sec_TidySet$Activity_ID),]
-
-			     > str(sec_TidySet )
-			     'data.frame':	180 obs. of  69 variables:
-			      $ Subject_ID                                    : int  1 1 1 1 1 1 2 2 2 2 ...
-			       $ Activity_ID                                   : int  1 2 3 4 5 6 1 2 3 4 ...
-			        $ Activity_Type                                 : chr  "WALKING" "WALKING_UPSTAIRS" "WALKING_DOWNSTAIRS" "SITTING" ...
-
-				## Writing second tidy data set in txt file
-
-				write.table(sec_TidySet, "sec_TidySet.txt", row.name=FALSE)
-
-				===============================================================
