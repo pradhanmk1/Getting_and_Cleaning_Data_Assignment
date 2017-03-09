@@ -75,12 +75,13 @@ activity_labels<-read.table("activity_labels.txt",stringsAsFactors=F,header=F)
 ##Look at the properties of the above variables
 
 ### str(X_train)
-'data.frame':	7352 obs. of  561 variables:
-$ tBodyAcc-mean()-X                   : num  0.289 0.278 0.28 0.279 0.277 ...
+*  'data.frame':	7352 obs. of  561 variables:
+*  $ tBodyAcc-mean()-X                   : num  0.289 0.278 0.28 0.279 0.277 ...
 ### str(Y_train)
-'data.frame':	7352 obs. of  1 variable:
-$ Activity_ID: int  5 5 5 5 5 5 5 5 5 5 ...
+*  'data.frame':	7352 obs. of  1 variable:
+*  $ Activity_ID: int  5 5 5 5 5 5 5 5 5 5 ...
 ### str(X_test)
-'data.frame':	2947 obs. of  561 variables:
-$ tBodyAcc-mean()-X                   : num  0.257 0.286 0.275 0.27 0.275 ...
+*  'data.frame':	2947 obs. of  561 variables:
+*  $ tBodyAcc-mean()-X                   : num  0.257 0.286 0.275 0.27 0.275 ...
 ##Reading features
+
