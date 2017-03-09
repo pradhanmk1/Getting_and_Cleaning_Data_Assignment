@@ -3,7 +3,7 @@
 This document describes the code inside run_analysis.R.
 
 #Step 0 : Download the Data
-#===========================
+===========================
 
 Variables used:
 *  filesPath : path of data source files
@@ -38,7 +38,7 @@ DATA FILES
 * activity_labels.txt - Links the class labels with their activity name.
 
 # Step 1 : Merges the training and the test sets to create one data set.
-#=======================================================================
+=======================================================================
 
 ##Loading data
 Variables used :
@@ -73,13 +73,13 @@ features<-read.table("features.txt",stringsAsFactors=F,header=F)
 activity_labels<-read.table("activity_labels.txt",stringsAsFactors=F,header=F)
 
 ##Look at the properties of the above variables
-#### str(X_train)
-#####'data.frame':7352 obs. of  561 variables:
-#####$ tBodyAcc-mean()-X                   : num  0.289 0.278 0.28 0.279 0.277 ...
-#### str(Y_train)
+### str(X_train)
+-'data.frame':7352 obs. of  561 variables:
+-$ tBodyAcc-mean()-X                   : num  0.289 0.278 0.28 0.279 0.277 ...
+### str(Y_train)
 #####'data.frame':7352 obs. of  1 variable:
 #####$ Activity_ID: int  5 5 5 5 5 5 5 5 5 5 ...
-#### str(X_test)
+### str(X_test)
 #####'data.frame':	2947 obs. of  561 variables:
 #####$ tBodyAcc-mean()-X                   : num  0.257 0.286 0.275 0.27 0.275 ...
 ####str(Y_test)
@@ -121,7 +121,7 @@ Variables used :
 #####$ Activity_ID                         : int  5 5 5 5 5 5 5 5 5 5 ...
 
 #Step 2 : Extracts only the measurements on the mean and standard deviation for each measurement.
-#===============================================================================================
+===============================================================================================
 ##Reading column names:
 Variable used :
 *  FeaturesNames : contains all features with mean and std
@@ -148,7 +148,7 @@ Variables Used :
 Data<-subset(UCI,select=selectedNames)
 
 #Step 3 : Uses descriptive activity names to name the activities in the data set
-#================================================================================
+================================================================================
 
 Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
 
@@ -157,7 +157,7 @@ Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
 #####$ Activity_ID                                   : int  1 1 1 1 1 1 1 1 1 1 ...
 
 #Step 4 : Appropriately labels the data set with descriptive variable names.
-#============================================================================
+============================================================================
 
 *  In the former part, variables activity and subject and names of the activities have been labelled using descriptive names.
 *  In this part, Names of Feteatures will labelled using descriptive variable names.
@@ -168,6 +168,7 @@ Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
 *  Mag is replaced by Magnitude
 *  BodyBody is replaced by Body
 
+###code
 * names(Data)<-gsub("^t", "time", names(Data))
 * names(Data)<-gsub("^f", "frequency", names(Data))
 * names(Data)<-gsub("Acc", "Accelerometer", names(Data))
@@ -176,7 +177,7 @@ Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
 * names(Data)<-gsub("BodyBody", "Body", names(Data))
 
 #Step 5 : From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-#=======================================================================================================================================================
+=======================================================================================================================================================
 Variables used :
 *  sec_TidySet  : Second independent tidy data set with the average of each variable for each activity and each subject.
 
@@ -194,4 +195,4 @@ Variables used :
 
 write.table(sec_TidySet, "sec_TidySet.txt", row.name=FALSE)
 
-#===============================================================
+===============================================================
