@@ -74,28 +74,28 @@ activity_labels<-read.table("activity_labels.txt",stringsAsFactors=F,header=F)
 
 ##Look at the properties of the above variables
 ### str(X_train)
--'data.frame':7352 obs. of  561 variables:
--$ tBodyAcc-mean()-X                   : num  0.289 0.278 0.28 0.279 0.277 ...
+#####'data.frame':7352 obs. of  561 variables:
+#####$ tBodyAcc-mean()-X                   : num  0.289 0.278 0.28 0.279 0.277 ...
 ### str(Y_train)
 #####'data.frame':7352 obs. of  1 variable:
 #####$ Activity_ID: int  5 5 5 5 5 5 5 5 5 5 ...
 ### str(X_test)
 #####'data.frame':	2947 obs. of  561 variables:
 #####$ tBodyAcc-mean()-X                   : num  0.257 0.286 0.275 0.27 0.275 ...
-####str(Y_test)
+###str(Y_test)
 #####'data.frame':	2947 obs. of  1 variable:
 #####$ Activity_ID: int  5 5 5 5 5 5 5 5 5 5 ...
-####str(subject_train)
+###str(subject_train)
 #####data.frame':	7352 obs. of  1 variable:
 #####$Subject_ID: int  1 1 1 1 1 1 1 1 1 1 ...
-####str(subject_test)
+###str(subject_test)
 #####'data.frame':	2947 obs. of  1 variable:
 #####$ Subject_ID: int  2 2 2 2 2 2 2 2 2 2 ...
-####str(features)
+###str(features)
 #####'data.frame':	561 obs. of  2 variables:
 #####$ V1: int  1 2 3 4 5 6 7 8 9 10 ...
 #####$ V2: chr  "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y" "tBodyAcc-mean()-Z" "tBodyAcc-std()-X" ...
-####str(activity_labels)
+###str(activity_labels)
 #####'data.frame':	6 obs. of  2 variables:
 #####$ Activity_ID  : int  1 2 3 4 5 6
 #####$ Activity_Type: chr  "WALKING" "WALKING_UPSTAIRS" "WALKING_DOWNSTAIRS" "SITTING" ...
@@ -110,13 +110,13 @@ Variables used :
 * test<-cbind(Y_test,subject_test,X_test)
 * UCI<-rbind(train,test)
 
-####str(train)
+###str(train)
 #####'data.frame':	7352 obs. of  563 variables:
 #####$ Activity_ID                         : int  5 5 5 5 5 5 5 5 5 5 ...
-####str(test)
+###str(test)
 #####'data.frame':	2947 obs. of  563 variables:
 #####$ Activity_ID                         : int  5 5 5 5 5 5 5 5 5 5 ...
-####str(UCI)
+###str(UCI)
 #####'data.frame':	10299 obs. of  563 variables:
 #####$ Activity_ID                         : int  5 5 5 5 5 5 5 5 5 5 ...
 
@@ -128,7 +128,7 @@ Variable used :
 
 FeaturesNames<-features$V2[grep("mean\\(\\)|std\\(\\)", features$V2)]
 
-####str(FeaturesNames)
+###str(FeaturesNames)
 #####chr [1:66] "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y" "tBodyAcc-mean()-Z" ...
 
 ##Create vector for defining ID, mean and standard deviation:
@@ -137,7 +137,7 @@ Variables used :
 
 selectedNames<-c(as.character(FeaturesNames), "Subject_ID", "Activity_ID" )
 
-####str(selectedNames)
+###str(selectedNames)
 #####chr [1:68] "tBodyAcc-mean()-X" "tBodyAcc-mean()-Y" "tBodyAcc-mean()-Z" ...
 
 ##Making nessesary subset from UCI
@@ -152,7 +152,7 @@ Data<-subset(UCI,select=selectedNames)
 
 Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
 
-####str(Data)
+###str(Data)
 #####'data.frame':	10299 obs. of  69 variables:
 #####$ Activity_ID                                   : int  1 1 1 1 1 1 1 1 1 1 ...
 
@@ -185,7 +185,7 @@ Variables used :
 * sec_TidySet <- aggregate(. ~Subject_ID + Activity_ID - Activity_Type , Data, mean)
 * sec_TidySet <- sec_TidySet[order(sec_TidySet$Subject_ID, sec_TidySet$Activity_ID),]
 
-####str(sec_TidySet )
+###str(sec_TidySet )
 #####'data.frame':	180 obs. of  69 variables:
 #####$ Subject_ID                                    : int  1 1 1 1 1 1 2 2 2 2 ...
 #####$ Activity_ID                                   : int  1 2 3 4 5 6 1 2 3 4 ...
