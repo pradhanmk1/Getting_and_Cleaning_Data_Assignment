@@ -3,7 +3,7 @@
 This document describes the code inside run_analysis.R.
 
 #Step 0 : Download the Data
-===========================
+#===========================
 
 Variables used:
 *  filesPath : path of data source files
@@ -13,11 +13,11 @@ Variables used:
 *  exdir: The directory to extract files to from zip file
 
 ##Downloads the UCI HAR zip file if it doesn't exist
-filesPath <- "C:/Manoj-H/docs/data science/JHU/3 - Getting and Cleaning Data/Project/UCI HAR Dataset"
-setwd(filesPath)
-if(!file.exists("./data")){dir.create("./data")}
-fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(fileUrl,destfile="./data/Dataset.zip")
+* filesPath <- "C:/Manoj-H/docs/data science/JHU/3 - Getting and Cleaning Data/Project/UCI HAR Dataset"
+* setwd(filesPath)
+* if(!file.exists("./data")){dir.create("./data")}
+* fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+* download.file(fileUrl,destfile="./data/Dataset.zip")
 
 ##Unzip DataSet to /data directory
 unzip(zipfile="./data/Dataset.zip",exdir="./data")
@@ -38,7 +38,7 @@ DATA FILES
 * activity_labels.txt - Links the class labels with their activity name.
 
 # Step 1 : Merges the training and the test sets to create one data set.
-=======================================================================
+#=======================================================================
 
 ##Loading data
 Variables used :
@@ -54,17 +54,17 @@ Variables used :
 setwd("C:/Manoj-H/docs/data science/JHU/3 - Getting and Cleaning Data/Project/UCI HAR Dataset/data/UCI HAR Dataset")
 
 ##Read data files to train 
-*X_train <-read.table("train/X_train.txt",stringsAsFactors=F,header=F)
-*Y_train <-read.table("train/Y_train.txt",stringsAsFactors=F,header=F)
+* X_train <-read.table("train/X_train.txt",stringsAsFactors=F,header=F)
+* Y_train <-read.table("train/Y_train.txt",stringsAsFactors=F,header=F)
 
 ##Read data files to test data
-*X_test<-read.table("test/X_test.txt",stringsAsFactors=F,header=F)
-*Y_test<-read.table("test/Y_test.txt",stringsAsFactors=F,header=F)
+* X_test<-read.table("test/X_test.txt",stringsAsFactors=F,header=F)
+* Y_test<-read.table("test/Y_test.txt",stringsAsFactors=F,header=F)
 
 
 ## Read subject files
-*subject_train <-read.table("train/subject_train.txt",stringsAsFactors=F,header=F)
-*subject_test<-read.table("test/subject_test.txt",stringsAsFactors=F,header=F)
+* subject_train <-read.table("train/subject_train.txt",stringsAsFactors=F,header=F)
+* subject_test<-read.table("test/subject_test.txt",stringsAsFactors=F,header=F)
 
 ##Reading features
 features<-read.table("features.txt",stringsAsFactors=F,header=F)
@@ -106,9 +106,9 @@ Variables used :
 *  test : merged test data
 *  UCI : combination of train and test data
 
-*train<-cbind(Y_train,subject_train,X_train)
-*test<-cbind(Y_test,subject_test,X_test)
-*UCI<-rbind(train,test)
+* train<-cbind(Y_train,subject_train,X_train)
+* test<-cbind(Y_test,subject_test,X_test)
+* UCI<-rbind(train,test)
 
 ####str(train)
 #####'data.frame':	7352 obs. of  563 variables:
@@ -121,7 +121,7 @@ Variables used :
 #####$ Activity_ID                         : int  5 5 5 5 5 5 5 5 5 5 ...
 
 #Step 2 : Extracts only the measurements on the mean and standard deviation for each measurement.
-===============================================================================================
+#===============================================================================================
 ##Reading column names:
 Variable used :
 *  FeaturesNames : contains all features with mean and std
@@ -148,7 +148,7 @@ Variables Used :
 Data<-subset(UCI,select=selectedNames)
 
 #Step 3 : Uses descriptive activity names to name the activities in the data set
-================================================================================
+#================================================================================
 
 Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
 
@@ -157,7 +157,7 @@ Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
 #####$ Activity_ID                                   : int  1 1 1 1 1 1 1 1 1 1 ...
 
 #Step 4 : Appropriately labels the data set with descriptive variable names.
-============================================================================
+#============================================================================
 
 *  In the former part, variables activity and subject and names of the activities have been labelled using descriptive names.
 *  In this part, Names of Feteatures will labelled using descriptive variable names.
@@ -168,21 +168,21 @@ Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
 *  Mag is replaced by Magnitude
 *  BodyBody is replaced by Body
 
-*names(Data)<-gsub("^t", "time", names(Data))
-*names(Data)<-gsub("^f", "frequency", names(Data))
-*names(Data)<-gsub("Acc", "Accelerometer", names(Data))
-*names(Data)<-gsub("Gyro", "Gyroscope", names(Data))
-*names(Data)<-gsub("Mag", "Magnitude", names(Data))
-*names(Data)<-gsub("BodyBody", "Body", names(Data))
+* names(Data)<-gsub("^t", "time", names(Data))
+* names(Data)<-gsub("^f", "frequency", names(Data))
+* names(Data)<-gsub("Acc", "Accelerometer", names(Data))
+* names(Data)<-gsub("Gyro", "Gyroscope", names(Data))
+* names(Data)<-gsub("Mag", "Magnitude", names(Data))
+* names(Data)<-gsub("BodyBody", "Body", names(Data))
 
 #Step 5 : From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-=======================================================================================================================================================
+#=======================================================================================================================================================
 Variables used :
 *  sec_TidySet  : Second independent tidy data set with the average of each variable for each activity and each subject.
 
-*Data$Activity_Type <- as.character(Data$Activity_Type)
-*sec_TidySet <- aggregate(. ~Subject_ID + Activity_ID - Activity_Type , Data, mean)
-*sec_TidySet <- sec_TidySet[order(sec_TidySet$Subject_ID, sec_TidySet$Activity_ID),]
+* Data$Activity_Type <- as.character(Data$Activity_Type)
+* sec_TidySet <- aggregate(. ~Subject_ID + Activity_ID - Activity_Type , Data, mean)
+* sec_TidySet <- sec_TidySet[order(sec_TidySet$Subject_ID, sec_TidySet$Activity_ID),]
 
 ####str(sec_TidySet )
 #####'data.frame':	180 obs. of  69 variables:
@@ -194,4 +194,4 @@ Variables used :
 
 write.table(sec_TidySet, "sec_TidySet.txt", row.name=FALSE)
 
-===============================================================
+#===============================================================
