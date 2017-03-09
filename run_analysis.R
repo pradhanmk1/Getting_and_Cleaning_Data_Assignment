@@ -47,7 +47,7 @@ test<-cbind(Y_test,subject_test,X_test)
 #Merge train and test
 UCI<-rbind(train,test)
 
-#Step#2
+#Step 2
 #Extracts only the measurements on the mean and standard deviation for each measurement.
 #Reading column names:
 
@@ -58,12 +58,12 @@ selectedNames<-c(as.character(FeaturesNames), "Subject_ID", "Activity_ID" )
 #Making nessesary subset from UCI
 Data<-subset(UCI,select=selectedNames)
 
-#Step#3
+#Step 3
 #Uses descriptive activity names to name the activities in the data set
 
 Data<- merge(Data,activity_labels,by='Activity_ID',all.x=TRUE)
 
-#Step#4
+#Step 4
 #Appropriately labels the data set with descriptive variable names.
 #In the former part, variables activity and subject and names of the activities have been labelled using descriptive names.
 #In this part, Names of Feteatures will labelled using descriptive variable names.
@@ -81,7 +81,7 @@ names(Data)<-gsub("Gyro", "Gyroscope", names(Data))
 names(Data)<-gsub("Mag", "Magnitude", names(Data))
 names(Data)<-gsub("BodyBody", "Body", names(Data))
 
-#Step#5
+#Step 5
 #From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 Data$Activity_Type <- as.character(Data$Activity_Type)
 sec_TidySet <- aggregate(. ~Subject_ID + Activity_ID - Activity_Type , Data, mean)
